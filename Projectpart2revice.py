@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 
 
-
+# creating main page
 win = Tk()
 win.title("Part B")
 win.geometry("500x500")
