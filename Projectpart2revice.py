@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 
 
-# creating main page
+
 win = Tk()
 win.title("Part B")
 win.geometry("500x500")
@@ -15,24 +15,35 @@ Label(win, text="Please Select a method from below",bg='powder blue',font=("Aria
 # creating Check_Prime_No Function
 
 def Check_Prime_No():
-    #win.destroy()
-    Cp = Tk()
-    Cp.title("Check prime Number")
-    Cp.geometry("500x500")
-    Cp.configure(background='yellow')
+  #win.destroy()
+  Cp = Tk()
+  Cp.title("Check prime Number")
+  Cp.geometry("500x500")
+  Cp.configure(background='yellow')
 
-    #creating functionality
-    P_No = IntVar()
-    EntryBox=Entry(Cp, textvariable=P_No,font=('Arial', 20, 'bold'))
-    EntryBox.pack()
-    # creating Prime No Btn Functionality
-    def Prime_No():
-      if P_No.get()/2==0 or P_No.get()/3==0 or P_No.get()/5==0 or P_No.get()/7==0: 
-        Label(Cp, text='It is a  Not a prime number',font=('Arial',20,'bold')).pack()
+  #creating functionality
+  entry1= StringVar()
+  EntryBox=Entry(Cp,textvariable=entry1,font=('Arial', 20, 'bold'))
+  EntryBox.pack()
+  
+  # creating Prime No Btn Functionality
+  def primeNumber():
+    no = EntryBox.get()
+    no = int(no)
+    if no <=1:
+      return False
+    else:
+      for i in range(2, no):
+        if no % i == 0:
+          return False
+        else:
+          return True
+      if primeNumber() == True:
+        Label(Cp, text=f'{no} is prime').pack()
       else:
-        Label(Cp, text='It is a prime number',font=('Arial',20,'bold')).pack()  
-    Btn = Button(Cp, text='Calculate',font=('Arial',20,'bold'),command=Prime_No,)
-    Btn.pack()
+        Label(Cp, text=f'{no} is not prime').pack()
+  Btn = Button(Cp, text='Calculate',command=primeNumber,font=('Arial',20,'bold'))
+  Btn.pack()
     
 # creating Radian_to_degree function
 def Radian_to_degree():
@@ -42,14 +53,17 @@ def Radian_to_degree():
     
     Rd.geometry("500x500")
     Rd.configure(background='yellow')
-    Label(Rd, text="Enter Radian value to convert into degrees",font=('Arial',15,'bold')).pack()
+    Label(Rd, text="Enter Radian value to convert into degrees", bg='yellow',font=('Arial',15,'bold')).pack()
     # Creating Radian To Degree Converter Function
 
-    r = IntVar()
-    take_input = Entry(Rd, textvariable=r)
+    r = StringVar()
+    take_input = Entry(Rd, textvariable=r,font=('Arial',15,'bold'))
     take_input.pack()
     def radian_to_degree():
-      messagebox.showinfo("hello", message=r*180/3.14)
+      r = take_input.get()
+      r = int(r)
+      d = r*3.14/180
+      Label(Rd, text="degrees = "+str(d)).pack()
     btn= Button(Rd, text='Calculate',font=('Arial',20,'bold'),command=radian_to_degree)
     btn.pack()
     #Label(Rd, text=radian_to_degree(r.get()).pack())
@@ -63,19 +77,87 @@ def Degree_to_radian():
     #win.destroy()
     Dr = Tk()
     Dr.title('Degree to Radian')
-    Dr.geometry("300x300")
+    Dr.geometry("400x400")
+    Dr.configure(background="yellow")
+    r = StringVar()
+    Label(Dr, text="Enter Degrees value to convert into radian", bg='yellow', font=('Arial',15,'bold')).pack()
+    take_input = Entry(Dr, textvariable=r,font=('Arial',15,'bold'))
+    take_input.pack()
+    def degrees_to_radian():
+      r = take_input.get()
+      r = int(r)
+      d = r*180/3.14
+      Label(Dr, text="degrees = "+str(d)).pack()
+    btn = Button(Dr, text="calculate", command=degrees_to_radian,font=('Arial',20, 'bold'))
+    btn.pack()
 # creating Compute_Arc_Length function
 def Compute_Arc_Length():
+
     #win.destroy()
     Cal = Tk()
     Cal.title('Compute Arc Length of an Angle')
-    Cal.geometry("300x300")
+    Cal.geometry("400x400")
+    Cal.configure(background="yellow")
+    Label(Cal, text="Please Enter Values To find Arc Length", bg='yellow', font=('Arial',15,'bold')).pack()
+    d = StringVar()
+    a = StringVar()
+    Label(Cal, text="Please Enter Diameter here: ",bg='yellow', font=('Arial',12,'bold')).pack()
+    entry1=Entry(Cal, textvariable=d, font=('Arial',20,'bold'))
+    entry1.pack()
+    Label(Cal, text="Please Enter Angle here: ", bg='yellow', font=('Arial',12,'bold')).pack()
+    entry2=Entry(Cal, textvariable=a, font=('Arial',20,'bold'))
+    entry2.pack()
+    def arc_length():
+      diameter= entry1.get()
+      diameter = float(diameter)
+      angle= entry2.get()
+      angle = float(angle)
+      pi=22/7
+      #diameter = float(input('Diameter of circle: '))
+      #angle = float(input('angle measure: '))
+      if angle >= 360:
+        Label(Cal, text="Angle not possible",font=('Arial',20,'bold')).pack()
+        return
+      arc_length = (pi*diameter) * (angle/360)
+      Label(Cal, text="Arc Length is: "+str(arc_length), font=('Arial',15, 'bold')).pack()
+    btn = Button(Cal, text="Calculate", command=arc_length)
+    btn.pack()
+    
 # creating Compute_Arc_Length function
 def Area_of_sector():
-    #win.destroy()
+    #1/2r2@
+  #win.destroy()
     Aos = Tk()
     Aos.title('Compute Area Of Sector')
-    Aos.geometry("300x300")
+    Aos.geometry("400x400")
+    Aos.configure(background="yellow")
+    Aos1 = StringVar()
+    Aos2 = StringVar()
+    Label(Aos, text="Please Enter Radius Here",bg='yellow',font=('Arial',20,'bold')).pack()
+    entry1 = Entry(Aos, textvariable=Aos1,font=('Arial',20,'bold'))
+    entry1.pack()
+    Label(Aos, text="Please Enter Angle Here",bg='yellow',font=('Arial',20,'bold')).pack()
+    entry2 = Entry(Aos, textvariable=Aos2,font=('Arial',20,'bold'))
+    entry2.pack()
+    def area_of_sector():
+      a = entry1.get()
+      a = float(a)
+      b = entry2.get()
+      b = float(b)
+      aoa = (1/2)*a**2*b
+      Label(Aos, text="Area of Sector: "+str(aoa),font=('Arial',20,'bold')).pack()
+
+
+    btn = Button(Aos, text="Calculate",command=area_of_sector,font=('Arial',20,'bold'))
+    btn.pack()
+    
+
+
+
+    #def area_of_sector():
+      
+
+    
 # creating Compute_Arc_Length function
 def UnKnown():
     #win.destroy()
